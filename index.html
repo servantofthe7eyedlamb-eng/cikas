@@ -46,7 +46,7 @@ footer .bl{font-size:2rem;color:var(--gold2)}
 @media(max-width:860px){nav ul{display:none}.hero,.split{grid-template-columns:1fr;gap:2.5rem}.hero{text-align:center;min-height:auto;padding-top:3rem}.hero p.sub{margin:0 auto}.grid3{grid-template-columns:1fr}.letters{grid-template-columns:repeat(5,1fr);gap:.4rem}.letters span.w{font-size:.62rem;letter-spacing:.08em}section{padding:4.5rem 0}}
 
 /* righteous: light breaking through darkness */
-body{background:#070605 url('images/cikas-calligraphy-v3.png?v=3') repeat;background-size:700px 440px;background-attachment:fixed}
+body{background:#070605 url('images/cikas-logo-tile.png?v=1') repeat;background-size:340px 390px;background-attachment:fixed}
 .hero{position:relative;isolation:isolate}
 .hero:before{content:"";position:absolute;z-index:-1;inset:-10% -20%;background:radial-gradient(ellipse 45% 55% at 72% 45%,rgba(255,232,170,.22),rgba(201,164,92,.08) 40%,transparent 70%);-webkit-mask:radial-gradient(circle at 72% 42%,#000 10%,transparent 60%);mask:radial-gradient(circle at 72% 42%,#000 10%,transparent 60%)}
 .hero .frame{box-shadow:0 0 60px rgba(230,200,134,.25),0 0 140px rgba(230,200,134,.12)}
@@ -73,10 +73,19 @@ section h2{text-shadow:0 0 24px rgba(230,200,134,.2)}
 .hero p,.meaningSec p,#craft p{text-shadow:0 0 12px #000,0 0 4px #000}
 </style>
 <!-- Background pattern font: Great Vibes (SIL OFL 1.1, fonts/LICENSE.txt) -->
+<style>/* Cikas lettering font */
+@font-face{font-family:'Grenze Gotisch';src:url('fonts/GrenzeGotisch.ttf?v=1') format('truetype');font-weight:100 900;font-display:swap}
+.bl,h1,h2,h3,nav .logo,nav ul a{font-family:'Grenze Gotisch','Montserrat',serif!important;text-transform:uppercase}
+.hero h1{font-weight:600!important;letter-spacing:.22em!important}
+h2,.card h3{font-weight:500!important;letter-spacing:.16em!important}
+nav .logo{font-weight:600!important;letter-spacing:.25em!important}
+nav ul a{letter-spacing:.18em}
+@media(max-width:600px){.hero h1{letter-spacing:.14em!important}}
+</style>
 </head><body>
-<nav><a class="logo bl" href="#top"><img src="images/cikas-logo.png?v=1" alt="Cikas" style="height:44px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<nav><a class="logo bl" href="#top">Cikas</a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <header class="hero" id="top"><div>
-<p class="eyebrow">Extrait de Parfum</p><h1><img src="images/cikas-logo.png?v=1" alt="Cikas" style="width:100%;max-width:560px;height:auto;display:block;filter:drop-shadow(0 0 24px rgba(201,164,92,.35))"></h1>
+<p class="eyebrow">Extrait de Parfum</p><h1>Cikas</h1>
 <p class="meaning">Christ Is King And Savior</p><p class="eyebrow" style="color:var(--muted)">The meaning of Cikas</p><div class="orn" style="text-align:inherit"><span class="cross" aria-hidden="true">✝</span></div>
 <p class="sub">A light in the darkness. A cologne and perfume house founded on faith. Each fragrance comes in a detailed, 3D-printed bottle with a simple cross, made to be worn every day with quiet confidence.</p>
 <a class="btn" href="#collection">Discover the Collection</a></div>
