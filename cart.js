@@ -8,7 +8,7 @@ const CIKAS_PHONE = "(708) 571-6534";
 const CIKAS_ZELLE = "sjzamojski@yahoo.com";
 function cikasShipCost(k,n){const c=CIKAS_SHIPPING[k];return n?c.first+c.extra*(n-1):0;}
 function cikasShipOk(k,n){const c=CIKAS_SHIPPING[k];return !c.maxBottles||n<=c.maxBottles;}
-const CIKAS_ORDER_EMAIL = "servantofthe7eyedlamb@gmail.com";
+const CIKAS_ORDER_EMAIL = "cikas12x12@gmail.com";
 const CIKAS_HOUSE = ["#7","#1","Holy 3","Tres En Uno","Cieloazul","TierradeEL"];
 const CIKAS_COLORS = ["White","Tan","Green"];
 /* Payment hook: replace this function later with Stripe/PayPal/Square. */
