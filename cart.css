@@ -24,3 +24,9 @@
 .cx-x{float:right;font-size:1.8rem;background:none;border:0;color:#e6c886;cursor:pointer;width:48px;height:48px}
 .cx-col{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
 .cx-navbtn.in{position:static;margin-left:.6rem}
+.cx-zel{border:1px solid #c9a45c;border-radius:10px;padding:1rem;margin:1rem 0;background:#14110b}
+.cx-zel h2{margin:0 0 .4rem}.cx-zt{font-size:2.4rem;font-weight:700;color:#e6c886;margin-bottom:.8rem}
+.cx-zr{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:.6rem 0;font-size:1.15rem}.cx-zr b{color:#f3e6c4;word-break:break-all;flex:1 1 60%}
+.cx-zr .cx-btn{min-height:46px;padding:.5rem 1rem;font-size:1.05rem}
+.cx-zs{padding-left:1.4rem;font-size:1.15rem;line-height:1.6}.cx-zn{font-size:1.15rem;color:#e6c886;font-weight:600}
+.cx-zs b{white-space:nowrap}
