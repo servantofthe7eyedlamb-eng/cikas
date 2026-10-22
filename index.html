@@ -70,6 +70,7 @@ body{background:#070605 url('images/cikas-approved-logo-bg-denser.png?v=20261013
 .card{background:linear-gradient(180deg,#12100c,#080706);box-shadow:inset 0 1px 0 rgba(230,200,134,.15)}
 .card:hover{box-shadow:0 0 40px rgba(230,200,134,.12)}
 section h2{text-shadow:0 0 24px rgba(230,200,134,.2)}
+.card{position:relative}.newbadge{position:absolute;top:.7rem;right:.7rem;width:3rem;height:3rem;border-radius:50%;background:var(--gold);color:#0e0d0b;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.5);transform:rotate(-12deg)}
 .price{display:inline-block;margin-top:.6rem;color:var(--gold2);font-size:1.25rem;letter-spacing:.08em;text-shadow:0 0 14px rgba(230,200,134,.3)}
 .cardcross{font-size:1.6rem;color:#fff3d6;text-shadow:0 0 10px #ffe7a8,0 0 26px rgba(201,164,92,.6);margin-bottom:.4rem}
 .cl{margin:.5rem 0}.cl .lab{display:block;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}.cl a{color:var(--gold2);text-decoration:none;font-size:1.3rem;overflow-wrap:anywhere;text-shadow:0 0 14px rgba(230,200,134,.25)}.cl a:hover{text-decoration:underline}.order{margin-top:1.2rem;color:var(--gold2);font-style:italic}
@@ -130,8 +131,13 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by Chanel Chance</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
 <div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by YSL L'Homme Libre</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
 <div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by Armani Acqua di Gio</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
-<div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by Louis Vuitton Imagination</h3><p class="spec">Extrait de Parfum</p><span class="ph">Limited, only 1.5 oz left</span><br><span class="price">$20 + shipping</span></div>
-<div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by Paco Rabanne 1 Million Lucky</h3><p class="spec">Extrait de Parfum</p><span class="ph">Limited, only 1.5 oz left</span><br><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Inspired by Louis Vuitton Imagination</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Paco Rabanne 1 Million Lucky</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Paco Rabanne Invictus Aqua</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Versace Eros</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Versace Eros Flame</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Dior Sauvage</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
+<div class="card"><div class="cardcross" aria-hidden="true">✝</div><span class="newbadge" data-until="2026-10-29">New</span><h3>Inspired by Jean Paul Gaultier Ultra Male</h3><p class="spec">Extrait de Parfum</p><span class="price">$20 + shipping</span></div>
 </div></div></section>
 <section id="craft" style="background:var(--ink)"><div class="wrap split">
 <div class="frame"><video src="videos/cikas-blacksleeve-spin.mp4?v=1" poster="images/cikas-blacksleeve-poster.jpg?v=1" width="720" height="960" autoplay muted loop playsinline preload="metadata" aria-label="Black Cikas bottle with gold Cikas lettering, gold carving and a green cross, turning slowly on black with smoke" style="display:block;width:100%;height:auto;aspect-ratio:3/4;background:#070605"></video></div>
@@ -144,4 +150,5 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <footer><div class="bl">Cikas</div><p>Christ Is King And Savior · © 2026 Cikas by Ibrahim Colmenero</p></footer>
 <script data-goatcounter="https://cikas.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="cart.css?v=3"><script src="cart.js?v=4"></script>
+<script>document.querySelectorAll(".newbadge[data-until]").forEach(function(b){if(new Date()>new Date(b.dataset.until+"T23:59:59-05:00"))b.remove();});</script>
 </body></html>
