@@ -143,6 +143,11 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <style>
 .card .desc{margin:.2rem 0 .8rem;color:var(--muted);font-size:1.02rem;line-height:1.55;font-family:'Lora',Georgia,serif;font-style:italic;text-align:center;max-width:22rem;margin-left:auto;margin-right:auto}
 </style>
+<style>
+.sample-limit{text-align:center;margin:.8rem 0 0;color:#ffcf8a;font-family:'Montserrat',sans-serif;font-size:1.05rem;letter-spacing:.06em}
+.sample-list label.is-disabled{opacity:.45;cursor:not-allowed}
+.sample-box .cx-btn{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:.06em;padding:.9rem 1rem;min-height:52px;background:linear-gradient(180deg,#e6c886,#b8903f);color:#0b0a08;border:0;border-radius:6px;cursor:pointer}
+</style>
 </head><body>
 <nav><a class="logo bl" href="#top"><img src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="height:40px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#samples">Samples</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <header class="hero" id="top"><div>
@@ -169,7 +174,7 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 </div></div></section>
 <section id="samples"><div class="wrap" style="text-align:center">
 <p class="eyebrow">Try Before You Commit</p><h2>Samples</h2>
-<p style="color:var(--muted)">Choose any of these house fragrances as a sample. Check the ones you want.</p>
+<p style="color:var(--muted)">Choose any fragrance as a sample — up to 5 per order. Samples are free; you only pay shipping.</p>
 <div class="sample-box">
 <ul class="sample-list">
 <li><label><input type="checkbox" name="sample" value="#7">#7</label></li>
@@ -177,8 +182,32 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <li><label><input type="checkbox" name="sample" value="Holy 3">Holy 3</label></li>
 <li><label><input type="checkbox" name="sample" value="Tres En Uno">Tres En Uno</label></li>
 <li><label><input type="checkbox" name="sample" value="Cieloazul">Cieloazul</label></li>
+<li><label><input type="checkbox" name="sample" value="TierradeEL">TierradeEL</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Dior Sauvage Elixir">Inspired by Dior Sauvage Elixir</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Boadicea the Victorious Blue Sapphire">Inspired by Boadicea the Victorious Blue Sapphire</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Tom Ford Noir">Inspired by Tom Ford Noir</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Bleu de Chanel Parfum">Inspired by Bleu de Chanel Parfum</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Valentino Born in Rome">Inspired by Valentino Born in Rome</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Burberry Her">Inspired by Burberry Her</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Coach New York">Inspired by Coach New York</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Paco Rabanne 1 Million">Inspired by Paco Rabanne 1 Million</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Baccarat Rouge 540">Inspired by Baccarat Rouge 540</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Versace Yellow Diamond">Inspired by Versace Yellow Diamond</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Creed Aventus">Inspired by Creed Aventus</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Chanel Chance">Inspired by Chanel Chance</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by YSL L'Homme Libre">Inspired by YSL L'Homme Libre</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Armani Acqua di Gio">Inspired by Armani Acqua di Gio</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Louis Vuitton Imagination">Inspired by Louis Vuitton Imagination</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Paco Rabanne 1 Million Lucky">Inspired by Paco Rabanne 1 Million Lucky</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Paco Rabanne Invictus Aqua">Inspired by Paco Rabanne Invictus Aqua</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Versace Eros">Inspired by Versace Eros</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Versace Eros Flame">Inspired by Versace Eros Flame</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Dior Sauvage">Inspired by Dior Sauvage</label></li>
+<li><label><input type="checkbox" name="sample" value="Inspired by Jean Paul Gaultier Ultra Male">Inspired by Jean Paul Gaultier Ultra Male</label></li>
 </ul>
-<span class="sample-price">Price coming soon</span>
+<p class="sample-limit" id="sample-limit" hidden>5 max per order</p>
+<span class="sample-price">Free, just pay shipping</span>
+<button type="button" class="cx-btn" id="add-samples-btn" style="display:block;width:100%;margin-top:1rem">Add samples to cart</button>
 </div>
 </div></section>
 <section id="inspired"><div class="wrap" style="text-align:center">
@@ -216,6 +245,6 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <div class="box"><p class="cl"><span class="lab">Email</span><a href="mailto:cikas12x12@gmail.com">cikas12x12@gmail.com</a></p><p class="cl"><span class="lab">Phone</span><a href="tel:+17085716534">(708) 571-6534</a></p><p class="order">To order, email or call. $20 each + shipping.</p></div></div></section>
 <footer><div class="bl">Cikas</div><p>Christ Is King And Savior · © 2026 Cikas by Ibrahim Colmenero</p></footer>
 <script data-goatcounter="https://cikas.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="stylesheet" href="cart.css?v=3"><script src="cart.js?v=4"></script>
+<link rel="stylesheet" href="cart.css?v=3"><script src="cart.js?v=5"></script>
 <script>document.querySelectorAll(".newbadge[data-until]").forEach(function(b){if(new Date()>new Date(b.dataset.until+"T23:59:59-05:00"))b.remove();});</script>
 </body></html>
