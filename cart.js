@@ -48,6 +48,7 @@ function cikasSubmitOrder(order){
 (function(){
   const KEY="cikasCart"; let cart=JSON.parse(localStorage.getItem(KEY)||'{"items":[],"ship":"usps"}');
   let sampleOfferSeen=false; /* once per checkout attempt after bottles present */
+  let cartNotice=""; /* shown once after sample cap */
   const save=()=>{localStorage.setItem(KEY,JSON.stringify(cart));render();};
   const money=n=>"$"+Number(n).toFixed(2);
   const isSample=i=>!!i.sample;
@@ -56,11 +57,10 @@ function cikasSubmitOrder(order){
   const sampleMax=()=>bottleQty()>0?CIKAS_SAMPLE_MAX_WITH_BOTTLES:CIKAS_SAMPLE_MAX_ALONE;
   /* Shipping: bottles use per-bottle rates. Samples-only pays first-unit rate once. Mixed: bottles only (samples ride along). */
   function shipUnits(){const b=bottleQty(),s=sampleQty();if(b>0)return b;if(s>0)return 1;return 0;}
-  function enforceSampleCap(noticeEl){
+  function enforceSampleCap(){
     const max=sampleMax(); let sq=sampleQty();
     if(sq<=max)return "";
     let removed=0;
-    /* trim from the end of sample lines / reduce qty */
     for(let i=cart.items.length-1;i>=0&&sq>max;i--){
       const it=cart.items[i]; if(!isSample(it))continue;
       const over=sq-max;
@@ -68,8 +68,8 @@ function cikasSubmitOrder(order){
       else{removed+=it.qty;sq-=it.qty;cart.items.splice(i,1);}
     }
     if(removed){
-      const msg=`Removed ${removed} sample(s) — max ${max} free samples with full bottles.`;
-      if(noticeEl) noticeEl.textContent=msg;
+      const msg=`Removed ${removed} sample(s) — max ${max} free samples when your cart has full bottles.`;
+      cartNotice=msg;
       return msg;
     }
     return "";
@@ -130,6 +130,7 @@ function cikasSubmitOrder(order){
       }
       boxes.forEach(c=>{c.checked=false;}); syncChecks();
       const trimmed=enforceSampleCap();
+      if(trimmed){/* cartNotice set */} 
       save();
       let msg=added?`Added ${added} ✓`:"Nothing added";
       if(trimmed) msg="Capped at 5 with bottles";
@@ -210,9 +211,15 @@ function cikasSubmitOrder(order){
   }
   function fb(t){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();}
   function goCheckout(){
-    /* Cap samples if bottles present */
     const notice=enforceSampleCap();
-    if(notice) save();
+    if(notice){
+      localStorage.setItem(KEY,JSON.stringify(cart));
+      /* stay on cart briefly so the notice is visible, then offer popup */
+      view="cart"; render();
+      sampleOfferSeen=true;
+      setTimeout(()=>{ showSampleOffer(()=>{view="checkout";render();}); }, 700);
+      return;
+    }
     if(bottleQty()>0 && !sampleOfferSeen){
       sampleOfferSeen=true;
       showSampleOffer(()=>{view="checkout";render();});
@@ -222,11 +229,14 @@ function cikasSubmitOrder(order){
   }
   function render(){
     const n=cart.items.reduce((a,i)=>a+i.qty,0); nb.innerHTML=`🛒 Cart<span class="cx-badge">${n}</span>`;
-    const T=tot(); let h=`<button class="cx-x" aria-label="Close">×</button>`;
+    let T=tot(); let h=`<button class="cx-x" aria-label="Close">×</button>`;
     if(view==="cart"){
       h+=`<h2>Your Cart</h2>`;
       if(!cart.items.length) h+=`<p>Your cart is empty.</p>`;
-      if(T.bq>0 && T.sq>CIKAS_SAMPLE_MAX_WITH_BOTTLES){enforceSampleCap();}
+      if(T.bq>0 && T.sq>CIKAS_SAMPLE_MAX_WITH_BOTTLES){
+        if(enforceSampleCap()){ localStorage.setItem(KEY,JSON.stringify(cart)); T=tot(); }
+      }
+      if(cartNotice){ h+=`<p class="cx-sample-warn" style="color:#ffcf8a;font-size:1.05rem;margin:.4rem 0 .8rem">${cartNotice}</p>`; cartNotice=""; }
       cart.items.forEach((i,k)=>h+=`<div class="cx-it"><b>${i.name}</b>${i.sample?`<div class="cx-opt">Sample · Free</div>`:""}${i.color?`<div class="cx-opt">Bottle: ${i.color}</div>`:""}<div class="cx-r"><div class="cx-qrow"><button class="cx-q" data-a="m" data-k="${k}">−</button><span class="cx-qv">${i.qty}</span><button class="cx-q" data-a="p" data-k="${k}">+</button></div><span>${money(i.qty*i.price)}</span><button class="cx-rm" data-a="r" data-k="${k}">Remove</button></div></div>`);
       if(cart.items.length){
         const bu=T.bu;
