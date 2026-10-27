@@ -86,6 +86,7 @@ function cikasSubmitOrder(order){
     w.querySelector(".cx-btn").onclick=e=>{const color=house?w.querySelector(".cx-c").value:"";
       const ex=cart.items.find(i=>!isSample(i)&&i.name===name&&i.color===color); ex?ex.qty+=q:cart.items.push({name,color,price,qty:q,sample:false});
       sampleOfferSeen=false;
+      enforceSampleCap();
       q=1;qv.textContent=1;save();const b=e.target;b.textContent="Added ✓";setTimeout(()=>b.textContent="Add to Cart",1200);};
     card.appendChild(w);
   });
@@ -199,7 +200,7 @@ function cikasSubmitOrder(order){
   const nb=document.createElement("button"); nb.className="cx-navbtn"; nb.setAttribute("aria-label","Open cart");
   const ov=document.createElement("div"); ov.className="cx-ov"; const dr=document.createElement("aside"); dr.className="cx-dr"; dr.setAttribute("aria-label","Cart");
   const nv=document.querySelector("nav"); if(nv){nv.appendChild(nb);nb.classList.add("in");} document.body.append(ov,dr); if(!nv)document.body.append(nb); let view="cart";
-  const open=v=>{view=v||"cart";document.body.classList.add("cx-open");render();}, close=()=>document.body.classList.remove("cx-open");
+  const open=v=>{view=v||"cart";document.body.classList.add("cx-open");render(); if(cartNotice) cartNotice="";}, close=()=>document.body.classList.remove("cx-open");
   nb.onclick=()=>open("cart"); ov.onclick=close; window.cikasOpenCart=open;
   function tot(){
     const bu=shipUnits();
@@ -214,10 +215,9 @@ function cikasSubmitOrder(order){
     const notice=enforceSampleCap();
     if(notice){
       localStorage.setItem(KEY,JSON.stringify(cart));
-      /* stay on cart briefly so the notice is visible, then offer popup */
-      view="cart"; render();
+      view="cart"; document.body.classList.add("cx-open"); render();
       sampleOfferSeen=true;
-      setTimeout(()=>{ showSampleOffer(()=>{view="checkout";render();}); }, 700);
+      setTimeout(()=>{ cartNotice=""; showSampleOffer(()=>{view="checkout";render();}); }, 900);
       return;
     }
     if(bottleQty()>0 && !sampleOfferSeen){
@@ -233,10 +233,7 @@ function cikasSubmitOrder(order){
     if(view==="cart"){
       h+=`<h2>Your Cart</h2>`;
       if(!cart.items.length) h+=`<p>Your cart is empty.</p>`;
-      if(T.bq>0 && T.sq>CIKAS_SAMPLE_MAX_WITH_BOTTLES){
-        if(enforceSampleCap()){ localStorage.setItem(KEY,JSON.stringify(cart)); T=tot(); }
-      }
-      if(cartNotice){ h+=`<p class="cx-sample-warn" style="color:#ffcf8a;font-size:1.05rem;margin:.4rem 0 .8rem">${cartNotice}</p>`; cartNotice=""; }
+      if(cartNotice){ h+=`<p class="cx-sample-warn" style="color:#ffcf8a;font-size:1.05rem;margin:.4rem 0 .8rem">${cartNotice}</p>`; }
       cart.items.forEach((i,k)=>h+=`<div class="cx-it"><b>${i.name}</b>${i.sample?`<div class="cx-opt">Sample · Free</div>`:""}${i.color?`<div class="cx-opt">Bottle: ${i.color}</div>`:""}<div class="cx-r"><div class="cx-qrow"><button class="cx-q" data-a="m" data-k="${k}">−</button><span class="cx-qv">${i.qty}</span><button class="cx-q" data-a="p" data-k="${k}">+</button></div><span>${money(i.qty*i.price)}</span><button class="cx-rm" data-a="r" data-k="${k}">Remove</button></div></div>`);
       if(cart.items.length){
         const bu=T.bu;
