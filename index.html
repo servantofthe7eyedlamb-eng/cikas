@@ -147,6 +147,16 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 .sample-limit{text-align:center;margin:.8rem 0 0;color:#ffcf8a;font-family:'Montserrat',sans-serif;font-size:1.05rem;letter-spacing:.06em}
 .sample-list label.is-disabled{opacity:.45;cursor:not-allowed}
 .sample-box .cx-btn{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:.06em;padding:.9rem 1rem;min-height:52px;background:linear-gradient(180deg,#e6c886,#b8903f);color:#0b0a08;border:0;border-radius:6px;cursor:pointer}
+.cx-sample-ov{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1100;display:flex;align-items:center;justify-content:center;padding:1rem}
+.cx-sample-modal{width:min(100%,440px);max-height:min(90vh,640px);overflow:auto;background:#0e0d0b;border:1px solid rgba(201,164,92,.55);border-radius:12px;padding:1.3rem 1.2rem 1.2rem;box-shadow:0 0 40px rgba(212,175,55,.18);color:#f3e6c4;font-family:'Montserrat',sans-serif}
+.cx-sample-modal h2{font-size:1.45rem;color:#e6c886;margin:0 0 .6rem;line-height:1.35}
+.cx-sample-modal .cx-sample-note{color:#bfb39a;font-size:1rem;margin:0 0 .9rem;line-height:1.5}
+.cx-sample-modal .sample-list{margin:0 0 .6rem}
+.cx-sample-modal .sample-list label{font-size:1.05rem;padding:.55rem .1rem}
+.cx-sample-modal .cx-col{display:flex;flex-direction:column;gap:.55rem;margin-top:.9rem}
+.cx-sample-modal .cx-btn{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.06em;padding:.85rem 1rem;min-height:48px;background:linear-gradient(180deg,#e6c886,#b8903f);color:#0b0a08;border:0;border-radius:6px;cursor:pointer}
+.cx-sample-modal .cx-btn.ghost{background:transparent;color:#e6c886;border:1px solid #c9a45c}
+.cx-sample-warn{color:#ffcf8a;font-size:.98rem;margin:.4rem 0 .6rem}
 </style>
 </head><body>
 <nav><a class="logo bl" href="#top"><img src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="height:40px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#samples">Samples</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
@@ -174,7 +184,7 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 </div></div></section>
 <section id="samples"><div class="wrap" style="text-align:center">
 <p class="eyebrow">Try Before You Commit</p><h2>Samples</h2>
-<p style="color:var(--muted)">Choose any fragrance as a sample — up to 5 per order. Samples are free; you only pay shipping.</p>
+<p style="color:var(--muted)">Samples-only orders: choose up to 7 free samples from any fragrance. You just pay shipping once. Full-bottle orders can add free samples at checkout.</p>
 <div class="sample-box">
 <ul class="sample-list">
 <li><label><input type="checkbox" name="sample" value="#7">#7</label></li>
@@ -205,8 +215,8 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <li><label><input type="checkbox" name="sample" value="Inspired by Dior Sauvage">Inspired by Dior Sauvage</label></li>
 <li><label><input type="checkbox" name="sample" value="Inspired by Jean Paul Gaultier Ultra Male">Inspired by Jean Paul Gaultier Ultra Male</label></li>
 </ul>
-<p class="sample-limit" id="sample-limit" hidden>5 max per order</p>
-<span class="sample-price">Free, just pay shipping</span>
+<p class="sample-limit" id="sample-limit" hidden>7 max</p>
+<span class="sample-price">Free samples, just pay shipping</span>
 <button type="button" class="cx-btn" id="add-samples-btn" style="display:block;width:100%;margin-top:1rem">Add samples to cart</button>
 </div>
 </div></section>
@@ -245,6 +255,6 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <div class="box"><p class="cl"><span class="lab">Email</span><a href="mailto:cikas12x12@gmail.com">cikas12x12@gmail.com</a></p><p class="cl"><span class="lab">Phone</span><a href="tel:+17085716534">(708) 571-6534</a></p><p class="order">To order, email or call. $20 each + shipping.</p></div></div></section>
 <footer><div class="bl">Cikas</div><p>Christ Is King And Savior · © 2026 Cikas by Ibrahim Colmenero</p></footer>
 <script data-goatcounter="https://cikas.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="stylesheet" href="cart.css?v=3"><script src="cart.js?v=5"></script>
+<link rel="stylesheet" href="cart.css?v=3"><script src="cart.js?v=6"></script>
 <script>document.querySelectorAll(".newbadge[data-until]").forEach(function(b){if(new Date()>new Date(b.dataset.until+"T23:59:59-05:00"))b.remove();});</script>
 </body></html>
