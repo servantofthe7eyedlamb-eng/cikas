@@ -91,8 +91,17 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 </style>
 <style>@media(max-width:800px){.hero h1 .wordmark{margin:0 auto}}</style>
 <style>.hero .eyebrow{font-family:'Lora',Georgia,serif!important}</style>
+<style>
+.sample-box{max-width:34rem;margin:2rem auto 0;border:1px solid rgba(201,164,92,.35);padding:1.6rem 1.4rem;background:rgba(8,7,6,.55);text-align:left}
+.sample-list{list-style:none;margin:0;padding:0}
+.sample-list li{border-bottom:1px solid rgba(201,164,92,.2)}
+.sample-list li:last-child{border-bottom:0}
+.sample-list label{display:flex;align-items:center;gap:.85rem;padding:.85rem .2rem;cursor:pointer;color:var(--cream);font-family:'Montserrat',sans-serif;font-size:1.15rem}
+.sample-list input{width:1.25rem;height:1.25rem;accent-color:#c9a45c;flex-shrink:0}
+.sample-price{display:block;text-align:center;margin-top:1.2rem;color:var(--gold2);font-size:1.15rem;letter-spacing:.08em;font-style:italic}
+</style>
 </head><body>
-<nav><a class="logo bl" href="#top"><img src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="height:40px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<nav><a class="logo bl" href="#top"><img src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="height:40px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#samples">Samples</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <header class="hero" id="top"><div>
 <p class="eyebrow">Extrait de Parfum</p><h1><img class="wordmark" src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="width:100%;max-width:560px;height:auto;display:block;filter:drop-shadow(0 0 24px rgba(201,164,92,.35))"></h1>
 <div class="orn" style="text-align:inherit"><span class="cross" aria-hidden="true">✝</span></div>
@@ -115,6 +124,20 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 <div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>Cieloazul</h3><p class="spec">Extrait de Parfum · <span style="white-space:nowrap">3.4 FL OZ</span></p><span class="ph">Scent notes coming soon</span><br><span class="price">$20 each + shipping</span></div>
 <div class="card"><div class="cardcross" aria-hidden="true">✝</div><h3>TierradeEL</h3><p class="spec">Extrait de Parfum · <span style="white-space:nowrap">3.4 FL OZ</span></p><span class="ph">Scent notes coming soon</span><br><span class="price">$20 each + shipping</span></div>
 </div></div></section>
+<section id="samples"><div class="wrap" style="text-align:center">
+<p class="eyebrow">Try Before You Commit</p><h2>Samples</h2>
+<p style="color:var(--muted)">Choose any of these house fragrances as a sample. Check the ones you want.</p>
+<div class="sample-box">
+<ul class="sample-list">
+<li><label><input type="checkbox" name="sample" value="#7">#7</label></li>
+<li><label><input type="checkbox" name="sample" value="#1">#1</label></li>
+<li><label><input type="checkbox" name="sample" value="Holy 3">Holy 3</label></li>
+<li><label><input type="checkbox" name="sample" value="Tres En Uno">Tres En Uno</label></li>
+<li><label><input type="checkbox" name="sample" value="Cieloazul">Cieloazul</label></li>
+</ul>
+<span class="sample-price">Price coming soon</span>
+</div>
+</div></section>
 <section id="inspired"><div class="wrap" style="text-align:center">
 <p class="eyebrow">Our Interpretations</p><h2>Inspired By</h2><p style="color:var(--muted)">Our interpretations inspired by these well-known scents. Not the original products, and not affiliated with or endorsed by the brands named.</p>
 <div class="grid3">
