@@ -100,10 +100,50 @@ p,li,.card *{text-shadow:0 1px 3px #000,0 0 8px #000}
 .sample-list input{width:1.25rem;height:1.25rem;accent-color:#c9a45c;flex-shrink:0}
 .sample-price{display:block;text-align:center;margin-top:1.2rem;color:var(--gold2);font-size:1.15rem;letter-spacing:.08em;font-style:italic}
 </style>
+<style>
+/* Hero shiny metallic gold */
+.hero .eyebrow{
+  color:transparent!important;
+  background:linear-gradient(105deg,#8a6a1f 0%,#d4af37 28%,#fff1a8 50%,#d4af37 72%,#8a6a1f 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 8px rgba(212,175,55,.55)) drop-shadow(0 0 18px rgba(255,241,168,.25));
+  animation:cikasGoldShimmer 4.5s ease-in-out infinite;
+}
+.hero .cross{
+  color:transparent!important;
+  background:linear-gradient(160deg,#8a6a1f 0%,#d4af37 30%,#fff1a8 48%,#f0d46a 58%,#d4af37 75%,#8a6a1f 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:none!important;
+  filter:drop-shadow(0 0 10px rgba(255,241,168,.7)) drop-shadow(0 0 28px rgba(212,175,55,.55));
+  animation:cikasGoldShimmer 4.5s ease-in-out infinite, cikasGoldGlow 4s ease-in-out infinite;
+}
+.hero .wordmark{
+  filter:drop-shadow(0 0 18px rgba(212,175,55,.55)) drop-shadow(0 0 40px rgba(255,241,168,.35));
+  animation:cikasGoldImgGlow 4s ease-in-out infinite;
+}
+@keyframes cikasGoldShimmer{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+@keyframes cikasGoldGlow{
+  50%{filter:drop-shadow(0 0 14px rgba(255,241,168,.9)) drop-shadow(0 0 36px rgba(212,175,55,.7))}
+}
+@keyframes cikasGoldImgGlow{
+  0%,100%{filter:drop-shadow(0 0 18px rgba(212,175,55,.55)) drop-shadow(0 0 40px rgba(255,241,168,.35))}
+  50%{filter:drop-shadow(0 0 24px rgba(212,175,55,.75)) drop-shadow(0 0 52px rgba(255,241,168,.5))}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero .eyebrow,.hero .cross,.hero .wordmark{animation:none}
+}
+</style>
 </head><body>
 <nav><a class="logo bl" href="#top"><img src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="height:40px;width:auto;display:block"></a><ul><li><a href="#meaning">Meaning</a></li><li><a href="#collection">Collection</a></li><li><a href="#samples">Samples</a></li><li><a href="#craft">Craft</a></li><li><a href="#contact">Contact</a></li></ul></nav>
 <header class="hero" id="top"><div>
-<p class="eyebrow">Extrait de Parfum</p><h1><img class="wordmark" src="images/cikas-wordmark-caps.png?v=1" alt="Cikas" style="width:100%;max-width:560px;height:auto;display:block;filter:drop-shadow(0 0 24px rgba(201,164,92,.35))"></h1>
+<p class="eyebrow">Extrait de Parfum</p><h1><img class="wordmark" src="images/cikas-wordmark-caps-gold.png?v=1" alt="Cikas" style="width:100%;max-width:560px;height:auto;display:block"></h1>
 <div class="orn" style="text-align:inherit"><span class="cross" aria-hidden="true">✝</span></div>
 <p class="sub">A light in the darkness. A cologne and perfume house founded on faith. Each fragrance comes in a detailed, 3D-printed bottle with a simple cross, made to be worn every day with quiet confidence.</p>
 <a class="btn" href="#collection">Discover the Collection</a></div>
