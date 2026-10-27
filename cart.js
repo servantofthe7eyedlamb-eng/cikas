@@ -4,6 +4,8 @@ const CIKAS_SHIPPING = {
   ups:   { label: "UPS Ground",            first: 17.95, extra: 3.00 },
   fedex: { label: "FedEx Home Delivery",   first: 21.95, extra: 2.50 }
 };
+/* Samples-only (no bottles): flat First-Class for paper samples under 4 oz, charged once. */
+const CIKAS_SAMPLE_SHIP = { label: "USPS First-Class (paper samples)", price: 3.50 };
 const CIKAS_PHONE = "(708) 571-6534";
 const CIKAS_ZELLE = "sjzamojski@yahoo.com";
 const CIKAS_SAMPLE_MAX_ALONE = 7;   /* samples-only orders */
@@ -55,8 +57,10 @@ function cikasSubmitOrder(order){
   const bottleQty=()=>cart.items.reduce((a,i)=>a+(isSample(i)?0:i.qty),0);
   const sampleQty=()=>cart.items.reduce((a,i)=>a+(isSample(i)?i.qty:0),0);
   const sampleMax=()=>bottleQty()>0?CIKAS_SAMPLE_MAX_WITH_BOTTLES:CIKAS_SAMPLE_MAX_ALONE;
-  /* Shipping: bottles use per-bottle rates. Samples-only pays first-unit rate once. Mixed: bottles only (samples ride along). */
+  /* Shipping: bottles use per-bottle rates. Samples-only: flat CIKAS_SAMPLE_SHIP once. Mixed: bottles only (samples ride along). */
+  function samplesOnly(){return bottleQty()===0 && sampleQty()>0;}
   function shipUnits(){const b=bottleQty(),s=sampleQty();if(b>0)return b;if(s>0)return 1;return 0;}
+  function shipLabel(){return samplesOnly()?CIKAS_SAMPLE_SHIP.label:(CIKAS_SHIPPING[cart.ship]||CIKAS_SHIPPING.usps).label;}
   function enforceSampleCap(){
     const max=sampleMax(); let sq=sampleQty();
     if(sq<=max)return "";
@@ -204,11 +208,15 @@ function cikasSubmitOrder(order){
   nb.onclick=()=>open("cart"); ov.onclick=close; window.cikasOpenCart=open;
   function tot(){
     const bu=shipUnits();
-    if(!cikasShipOk(cart.ship,bu))cart.ship=Object.keys(CIKAS_SHIPPING).find(k=>cikasShipOk(k,bu))||cart.ship;
+    const bq=bottleQty(), sq=sampleQty();
+    if(bq>0){
+      if(!CIKAS_SHIPPING[cart.ship] || !cikasShipOk(cart.ship,bu))
+        cart.ship=Object.keys(CIKAS_SHIPPING).find(k=>cikasShipOk(k,bu))||"usps";
+    }
     const s=cart.items.reduce((a,i)=>a+i.qty*i.price,0);
-    const sh=cikasShipCost(cart.ship,bu);
+    const sh=(bq===0 && sq>0)?CIKAS_SAMPLE_SHIP.price:cikasShipCost(cart.ship,bu);
     const n=cart.items.reduce((a,i)=>a+i.qty,0);
-    return{s,sh,t:s+sh,n,bu,bq:bottleQty(),sq:sampleQty()};
+    return{s,sh,t:s+sh,n,bu,bq,sq};
   }
   function fb(t){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();}
   function goCheckout(){
@@ -237,11 +245,15 @@ function cikasSubmitOrder(order){
       cart.items.forEach((i,k)=>h+=`<div class="cx-it"><b>${i.name}</b>${i.sample?`<div class="cx-opt">Sample · Free</div>`:""}${i.color?`<div class="cx-opt">Bottle: ${i.color}</div>`:""}<div class="cx-r"><div class="cx-qrow"><button class="cx-q" data-a="m" data-k="${k}">−</button><span class="cx-qv">${i.qty}</span><button class="cx-q" data-a="p" data-k="${k}">+</button></div><span>${money(i.qty*i.price)}</span><button class="cx-rm" data-a="r" data-k="${k}">Remove</button></div></div>`);
       if(cart.items.length){
         const bu=T.bu;
-        h+=`<h2 style="font-size:1.3rem">Shipping</h2><div class="cx-ship">${Object.entries(CIKAS_SHIPPING).map(([k,v])=>{const ok=cikasShipOk(k,bu);return `<label style="${ok?"":"opacity:.5;cursor:not-allowed"}"><input type="radio" name="cxs" value="${k}" ${cart.ship===k?"checked":""} ${ok?"":"disabled"}>${v.label}<span style="margin-left:auto">${ok?money(cikasShipCost(k,bu)):"N/A"}</span></label>`+(ok?"":`<p class="cx-note" style="color:#ffcf8a;font-size:1.05rem;margin:-.2rem 0 .6rem">USPS allows a maximum of ${v.maxBottles} bottles of perfume per box. For ${bu} bottles, please choose UPS or FedEx.</p>`)}).join("")}</div><p class="cx-note">Ground shipping only, estimated flat rates.${T.sq&&!T.bq?" Free samples — shipping charged once per order.":T.sq&&T.bq?" Free samples ship with your bottles (no extra shipping).":""}</p>
-        <div class="cx-tot"><div><span>Subtotal</span><span>${money(T.s)}</span></div><div><span>Shipping (est.)</span><span>${money(T.sh)}</span></div><div class="g"><span>Total</span><span>${money(T.t)}</span></div></div>
+        if(T.bq===0 && T.sq>0){
+          h+=`<h2 style="font-size:1.3rem">Shipping</h2><div class="cx-ship"><label><input type="radio" name="cxs" value="sample" checked>USPS First-Class (paper samples)<span style="margin-left:auto">${money(CIKAS_SAMPLE_SHIP.price)}</span></label></div><p class="cx-note">Paper samples under 4 oz, mailed flat. Flat $${CIKAS_SAMPLE_SHIP.price.toFixed(2)} charged once per samples-only order.</p>`;
+        } else {
+          h+=`<h2 style="font-size:1.3rem">Shipping</h2><div class="cx-ship">${Object.entries(CIKAS_SHIPPING).map(([k,v])=>{const ok=cikasShipOk(k,bu);return `<label style="${ok?"":"opacity:.5;cursor:not-allowed"}"><input type="radio" name="cxs" value="${k}" ${cart.ship===k?"checked":""} ${ok?"":"disabled"}>${v.label}<span style="margin-left:auto">${ok?money(cikasShipCost(k,bu)):"N/A"}</span></label>`+(ok?"":`<p class="cx-note" style="color:#ffcf8a;font-size:1.05rem;margin:-.2rem 0 .6rem">USPS allows a maximum of ${v.maxBottles} bottles of perfume per box. For ${bu} bottles, please choose UPS or FedEx.</p>`)}).join("")}</div><p class="cx-note">Ground shipping only, estimated flat rates.${T.sq&&T.bq?" Free samples ship with your bottles (no extra shipping).":""}</p>`;
+        }
+        h+=`<div class="cx-tot"><div><span>Subtotal</span><span>${money(T.s)}</span></div><div><span>Shipping (est.)</span><span>${money(T.sh)}</span></div><div class="g"><span>Total</span><span>${money(T.t)}</span></div></div>
         <p class="cx-note" style="font-size:1.05rem;color:#e6c886;margin-top:.8rem">Payment by Zelle after checkout.</p><div class="cx-col"><button class="cx-btn" data-a="co">Checkout</button><button class="cx-btn ghost" data-a="x">Keep Shopping</button></div>`;}
     } else if(view==="checkout"){
-      h+=`<h2>Checkout</h2><p class="cx-note">${n} item(s)${T.sq?` · ${T.sq} free sample(s)`:""} · ${CIKAS_SHIPPING[cart.ship].label} · Total ${money(T.t)}</p><form class="cx-f">
+      h+=`<h2>Checkout</h2><p class="cx-note">${n} item(s)${T.sq?` · ${T.sq} free sample(s)`:""} · ${shipLabel()} · Total ${money(T.t)}</p><form class="cx-f">
       <label>Full name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label>
       <label>Phone<input name="phone" type="tel" required autocomplete="tel"></label><label>Shipping address<textarea name="address" rows="3" required autocomplete="street-address"></textarea></label>
       <div class="cx-col"><button class="cx-btn" type="submit">Place Order</button><button class="cx-btn ghost" type="button" data-a="bk">Back to Cart</button></div>
@@ -270,7 +282,7 @@ function cikasSubmitOrder(order){
     dr.querySelectorAll("input[name=cxs]").forEach(r=>r.onchange=()=>{cart.ship=r.value;save();});
     const f=dr.querySelector("form"); if(f) f.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));const T2=tot();
       const num="CK-"+Date.now().toString(36).toUpperCase().slice(-6);cart.last={num,total:T2.t};
-      cikasSubmitOrder({num,items:cart.items,subtotal:T2.s,ship:T2.sh,shipLabel:CIKAS_SHIPPING[cart.ship].label,total:T2.t,c:d});
+      cikasSubmitOrder({num,items:cart.items,subtotal:T2.s,ship:T2.sh,shipLabel:shipLabel(),total:T2.t,c:d});
       cart.items=[];sampleOfferSeen=false;localStorage.setItem(KEY,JSON.stringify(cart));view="done";render();};
   }
   render();
