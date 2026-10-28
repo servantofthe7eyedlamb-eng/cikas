@@ -11,7 +11,7 @@ const CIKAS_ZELLE = "sjzamojski@yahoo.com";
 const CIKAS_SAMPLE_MAX_ALONE = 7;   /* samples-only orders */
 const CIKAS_SAMPLE_MAX_WITH_BOTTLES = 5; /* free samples when cart has full bottles */
 const CIKAS_ALL_FRAGRANCES = [
-  "#7","#1","Holy 3","Tres En Uno","Cieloazul","TierradeEL",
+  "#7","#1","Holy 3","Tres En Uno","Cieloazul","\u201cTerra di El\u201d (TdE)",
   "Inspired by Dior Sauvage Elixir",
   "Inspired by Boadicea the Victorious Blue Sapphire",
   "Inspired by Tom Ford Noir",
@@ -40,7 +40,7 @@ const CIKAS_ALL_FRAGRANCES = [
 function cikasShipCost(k,n){const c=CIKAS_SHIPPING[k];return n?c.first+c.extra*(n-1):0;}
 function cikasShipOk(k,n){const c=CIKAS_SHIPPING[k];return !c.maxBottles||n<=c.maxBottles;}
 const CIKAS_ORDER_EMAIL = "cikas12x12@gmail.com";
-const CIKAS_HOUSE = ["#7","#1","Holy 3","Tres En Uno","Cieloazul","TierradeEL"];
+const CIKAS_HOUSE = ["#7","#1","Holy 3","Tres En Uno","Cieloazul","\u201cTerra di El\u201d (TdE)"];
 const CIKAS_COLORS = ["White","Tan","Green"];
 function cikasSubmitOrder(order){
   const L=["New Cikas order "+order.num,"Order number: "+order.num,"Payment: Zelle to "+CIKAS_ZELLE+" (memo: "+order.num+")",""];
