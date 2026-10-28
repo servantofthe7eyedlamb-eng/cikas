@@ -32,7 +32,9 @@ const CIKAS_ALL_FRAGRANCES = [
   "Inspired by Versace Eros",
   "Inspired by Versace Eros Flame",
   "Inspired by Dior Sauvage",
-  "Inspired by Jean Paul Gaultier Ultra Male"
+  "Inspired by Jean Paul Gaultier Ultra Male",
+  "Inspired by Jean Paul Gaultier Le Male Elixir",
+  "Inspired by Burberry Hero"
 ];
 /* Bottle shipping: first unit at `first`, each extra bottle adds `extra`. Samples do not use per-vial extras. */
 function cikasShipCost(k,n){const c=CIKAS_SHIPPING[k];return n?c.first+c.extra*(n-1):0;}
