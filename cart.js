@@ -161,7 +161,7 @@ function cikasSubmitOrder(order){
       </div>
     </div>`;
     const list=ov.querySelector("#cx-pop-list");
-    CIKAS_ALL_FRAGRANCES.forEach(name=>{
+    CIKAS_ALL_FRAGRANCES.filter(n=>!CIKAS_HOUSE.includes(n)).forEach(name=>{
       const li=document.createElement("li");
       const lab=document.createElement("label");
       const inp=document.createElement("input");
