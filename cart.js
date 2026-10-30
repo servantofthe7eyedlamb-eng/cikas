@@ -91,7 +91,8 @@ function cikasSubmitOrder(order){
     const [mi,pl]=w.querySelectorAll(".cx-q"), qv=w.querySelector(".cx-qv");
     mi.onclick=()=>{q=Math.max(1,q-1);qv.textContent=q}; pl.onclick=()=>{q++;qv.textContent=q};
     w.querySelector(".cx-btn").onclick=e=>{const color=house?w.querySelector(".cx-c").value:""; const size=w.querySelector(".cx-sz").value;
-      const ex=cart.items.find(i=>!isSample(i)&&i.name===name&&i.color===color&&i.size===size); ex?ex.qty+=q:cart.items.push({name,color,size,price,qty:q,sample:false});
+      const linePrice=size==="100 ml"?30:20;
+      const ex=cart.items.find(i=>!isSample(i)&&i.name===name&&i.color===color&&i.size===size); ex?ex.qty+=q:cart.items.push({name,color,size,price:linePrice,qty:q,sample:false});
       sampleOfferSeen=false;
       enforceSampleCap();
       q=1;qv.textContent=1;save();const b=e.target;b.textContent="Added ✓";setTimeout(()=>b.textContent="Add to Cart",1200);};
