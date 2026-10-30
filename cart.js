@@ -44,7 +44,7 @@ const CIKAS_HOUSE = ["#7","#1","Holy 3","Tres En Uno","Cieloazul","\u201cTerra d
 const CIKAS_COLORS = ["White","Tan","Green"];
 function cikasSubmitOrder(order){
   const L=["New Cikas order "+order.num,"Order number: "+order.num,"Payment: Zelle to "+CIKAS_ZELLE+" (memo: "+order.num+")",""];
-  order.items.forEach(i=>L.push(`${i.qty} x ${i.name}${i.sample?" (sample, free)":""}${i.color?" ("+i.color+" bottle)":""} @ $${Number(i.price).toFixed(2)} = $${(i.qty*i.price).toFixed(2)}`));
+  order.items.forEach(i=>L.push(`${i.qty} x ${i.name}${i.sample?" (sample, free)":""}${i.size?" ("+i.size+")":""}${i.color?" ("+i.color+" bottle)":""} @ $${Number(i.price).toFixed(2)} = $${(i.qty*i.price).toFixed(2)}`));
   L.push("",`Subtotal: $${order.subtotal.toFixed(2)}`,`Shipping (${order.shipLabel}, estimate): $${order.ship.toFixed(2)}`,`Total: $${order.total.toFixed(2)}`,"",
   `Name: ${order.c.name}`,`Email: ${order.c.email}`,`Phone: ${order.c.phone}`,`Address: ${order.c.address}`);
   location.href=`mailto:${CIKAS_ORDER_EMAIL}?subject=${encodeURIComponent("Cikas order "+order.num+" - "+order.c.name)}&body=${encodeURIComponent(L.join("\n"))}`;
@@ -85,12 +85,13 @@ function cikasSubmitOrder(order){
     const m=pr.textContent.match(/\$(\d+(\.\d+)?)/); if(!m)return;
     const name=h.textContent.trim(), price=parseFloat(m[1]), house=CIKAS_HOUSE.includes(name);
     const w=document.createElement("div"); w.className="cx-add"; let q=1;
-    w.innerHTML=(house?`<label>Bottle color<select class="cx-c">${CIKAS_COLORS.map(c=>`<option>${c}</option>`).join("")}</select></label>`:"")+
+    w.innerHTML=`<label>Size<select class="cx-sz"><option>60 ml</option><option>100 ml</option></select></label>`+
+      (house?`<label>Bottle color<select class="cx-c">${CIKAS_COLORS.map(c=>`<option>${c}</option>`).join("")}</select></label>`:"")+
       `<div class="cx-qrow"><button class="cx-q" aria-label="Less">−</button><span class="cx-qv">1</span><button class="cx-q" aria-label="More">+</button></div><button class="cx-btn">Add to Cart</button>`;
     const [mi,pl]=w.querySelectorAll(".cx-q"), qv=w.querySelector(".cx-qv");
     mi.onclick=()=>{q=Math.max(1,q-1);qv.textContent=q}; pl.onclick=()=>{q++;qv.textContent=q};
-    w.querySelector(".cx-btn").onclick=e=>{const color=house?w.querySelector(".cx-c").value:"";
-      const ex=cart.items.find(i=>!isSample(i)&&i.name===name&&i.color===color); ex?ex.qty+=q:cart.items.push({name,color,price,qty:q,sample:false});
+    w.querySelector(".cx-btn").onclick=e=>{const color=house?w.querySelector(".cx-c").value:""; const size=w.querySelector(".cx-sz").value;
+      const ex=cart.items.find(i=>!isSample(i)&&i.name===name&&i.color===color&&i.size===size); ex?ex.qty+=q:cart.items.push({name,color,size,price,qty:q,sample:false});
       sampleOfferSeen=false;
       enforceSampleCap();
       q=1;qv.textContent=1;save();const b=e.target;b.textContent="Added ✓";setTimeout(()=>b.textContent="Add to Cart",1200);};
@@ -244,7 +245,7 @@ function cikasSubmitOrder(order){
       h+=`<h2>Your Cart</h2>`;
       if(!cart.items.length) h+=`<p>Your cart is empty.</p>`;
       if(cartNotice){ h+=`<p class="cx-sample-warn" style="color:#ffcf8a;font-size:1.05rem;margin:.4rem 0 .8rem">${cartNotice}</p>`; }
-      cart.items.forEach((i,k)=>h+=`<div class="cx-it"><b>${i.name}</b>${i.sample?`<div class="cx-opt">Sample · Free</div>`:""}${i.color?`<div class="cx-opt">Bottle: ${i.color}</div>`:""}<div class="cx-r"><div class="cx-qrow"><button class="cx-q" data-a="m" data-k="${k}">−</button><span class="cx-qv">${i.qty}</span><button class="cx-q" data-a="p" data-k="${k}">+</button></div><span>${money(i.qty*i.price)}</span><button class="cx-rm" data-a="r" data-k="${k}">Remove</button></div></div>`);
+      cart.items.forEach((i,k)=>h+=`<div class="cx-it"><b>${i.name}</b>${i.sample?`<div class="cx-opt">Sample · Free</div>`:""}${i.size?`<div class="cx-opt">Size: ${i.size}</div>`:""}${i.color?`<div class="cx-opt">Bottle: ${i.color}</div>`:""}<div class="cx-r"><div class="cx-qrow"><button class="cx-q" data-a="m" data-k="${k}">−</button><span class="cx-qv">${i.qty}</span><button class="cx-q" data-a="p" data-k="${k}">+</button></div><span>${money(i.qty*i.price)}</span><button class="cx-rm" data-a="r" data-k="${k}">Remove</button></div></div>`);
       if(cart.items.length){
         const bu=T.bu;
         if(T.bq===0 && T.sq>0){
