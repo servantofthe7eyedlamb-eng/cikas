@@ -30,7 +30,6 @@ const CIKAS_ALL_FRAGRANCES = [
   "Inspired by Paco Rabanne 1 Million Lucky",
   "Inspired by Paco Rabanne Invictus Aqua",
   "Inspired by Versace Eros",
-  "Inspired by Versace Eros Flame",
   "Inspired by Dior Sauvage",
   "Inspired by Jean Paul Gaultier Ultra Male",
   "Inspired by Jean Paul Gaultier Le Male Elixir",
