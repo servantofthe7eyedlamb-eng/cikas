@@ -29,10 +29,8 @@ const CIKAS_ALL_FRAGRANCES = [
   "Inspired by Louis Vuitton Imagination",
   "Inspired by Paco Rabanne 1 Million Lucky",
   "Inspired by Paco Rabanne Invictus Aqua",
-  "Inspired by Versace Eros",
   "Inspired by Dior Sauvage",
   "Inspired by Jean Paul Gaultier Ultra Male",
-  "Inspired by Jean Paul Gaultier Le Male Elixir",
   "Inspired by Burberry Hero"
 ];
 /* Bottle shipping: first unit at `first`, each extra bottle adds `extra`. Samples do not use per-vial extras. */
